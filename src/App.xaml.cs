@@ -73,7 +73,9 @@ public partial class App
                 services.AddSingleton<IFreeSql>(provider =>
                 {
                     return new FreeSqlBuilder()
+                    
                         .UseConnectionString(DataType.Sqlite, "Data Source=database.db")
+                        .UseMonitorCommand(cmd => Console.WriteLine(cmd.CommandText))// 启用控制台打印SQL
                         .Build();
                 });
 
