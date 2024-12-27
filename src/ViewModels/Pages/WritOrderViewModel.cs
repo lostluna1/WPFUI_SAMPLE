@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
 using WPFUI_SAMPLE.Contracts.Services;
 using WPFUI_SAMPLE.Entity;
 
@@ -25,11 +24,13 @@ public partial class WritOrderViewModel : ViewModel
         WritOrders = writOrders;
     }
 
-    partial void OnWritOrdersChanged(ObservableCollection<WritOrderEntity>? oldValue, ObservableCollection<WritOrderEntity> newValue)
+    [RelayCommand]
+    private async Task RefreshData()
     {
-        MessageBox.Show("123");
+        //需要刷新的数据在这里调用对应方法
+       await InitializeViewModel();
     }
-    //需要在表格中添加新的空白行
+
 
     [RelayCommand]
     private void AddNewWritOrder()

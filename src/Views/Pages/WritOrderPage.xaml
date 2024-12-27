@@ -28,6 +28,10 @@
                     Margin="5"
                     Command="{Binding ViewModel.SaveWritOrderCommand}"
                     Content="保存" />
+                <ui:Button Margin="5"
+                        Command="{Binding ViewModel.RefreshDataCommand}" Content="刷新" Appearance="Primary">
+                    
+                </ui:Button>
 
             </StackPanel>
             <ui:DataGrid
