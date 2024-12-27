@@ -1,4 +1,4 @@
-﻿using Wpf.Ui.Controls;
+﻿using Wpf.Ui.Abstractions.Controls;
 using WPFUI_SAMPLE.ViewModels.Pages;
 
 namespace WPFUI_SAMPLE.Views.Pages;

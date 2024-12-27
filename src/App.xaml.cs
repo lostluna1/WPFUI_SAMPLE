@@ -1,18 +1,18 @@
-﻿using System.IO;
-using System.Reflection;
-using System.Windows.Threading;
-using FreeSql;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Windows.Threading;
 using Wpf.Ui;
+using Wpf.Ui.DependencyInjection;
+using Wpf.Ui.Gallery.Services.Contracts;
 using WPFUI_SAMPLE.Services;
 using WPFUI_SAMPLE.ViewModels.Pages;
 using WPFUI_SAMPLE.ViewModels.Windows;
 using WPFUI_SAMPLE.Views.Pages;
-using WPFUI_SAMPLE.Views.Pages.SamplePage;
 using WPFUI_SAMPLE.Views.Windows;
-
+using WPFUI_SAMPLE.Views.Pages.SamplePage;
+using FreeSql;
+using WPFUI_SAMPLE.Contracts.Services;
 namespace WPFUI_SAMPLE;
 /// <summary>
 /// Interaction logic for App.xaml
@@ -26,8 +26,6 @@ public partial class App
     // https://docs.microsoft.com/dotnet/core/extensions/logging
 
 
-
-
     // !!!!!!!!!! 每个接口和ViewModel都需要在这里注册
     // 接口定义命名规范: I+类名+Service,如类名为Page,则接口名为IPageService
     // 接口实现命名规范: 类名+Service,如类名为Page,则接口实现名为PageService
@@ -36,49 +34,52 @@ public partial class App
 
 
 
-    private static readonly IHost _host = Host
-        .CreateDefaultBuilder()
-        .ConfigureAppConfiguration(c => { c.SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)); })
-        .ConfigureServices((context, services) =>
+    private static readonly IHost _host = Host.CreateDefaultBuilder()
+        .ConfigureAppConfiguration(c =>
         {
-            services.AddHostedService<ApplicationHostService>();
-
-            // Page resolver service
-            services.AddSingleton<IPageService, PageService>();
-
-            // Theme manipulation
-            services.AddSingleton<IThemeService, ThemeService>();
-
-            // TaskBar manipulation
-            services.AddSingleton<ITaskBarService, TaskBarService>();
-
-            // Service containing navigation, same as INavigationWindow... but without window
-            services.AddSingleton<INavigationService, NavigationService>();
-
-            // Main window with navigation
-            services.AddSingleton<INavigationWindow, MainWindow>();
-            services.AddSingleton<MainWindowViewModel>();
-
-            services.AddSingleton<DashboardPage>();
-            services.AddSingleton<DashboardViewModel>();
-            services.AddSingleton<DataPage>();
-            services.AddSingleton<DataViewModel>();
-            services.AddSingleton<SettingsPage>();
-            services.AddSingleton<SettingsViewModel>();
-
-
-            services.AddSingleton<IOrderService,OrderService>();
-            services.AddSingleton<OrderPage>();
-            services.AddSingleton<OrderViewModel>();
-
-            // 依赖注入,注册FreeSql,可以避免多次实例化FreeSql
-            services.AddSingleton<IFreeSql>(provider =>
+            _ = c.SetBasePath(AppContext.BaseDirectory);
+        })
+        .ConfigureServices(
+            (_1, services) =>
             {
-                return new FreeSqlBuilder()
-                    .UseConnectionString(DataType.Sqlite, "Data Source=database.db")
-                    .Build();
-            });
-        }).Build();
+                _ = services.AddNavigationViewPageProvider();
+
+                // App Host
+                _ = services.AddHostedService<ApplicationHostService>();
+
+                // Main window container with navigation
+                _ = services.AddSingleton<IWindow, MainWindow>();
+                _ = services.AddSingleton<MainWindowViewModel>();
+                _ = services.AddSingleton<INavigationService, NavigationService>();
+                _ = services.AddSingleton<ISnackbarService, SnackbarService>();
+                _ = services.AddSingleton<IContentDialogService, ContentDialogService>();
+                _ = services.AddSingleton<WindowsProviderService>();
+
+                // Top-level pages
+                _ = services.AddSingleton<DashboardPage>();
+                _ = services.AddSingleton<DashboardViewModel>();
+                _ = services.AddSingleton<SettingsPage>();
+                _ = services.AddSingleton<SettingsViewModel>();
+
+                // Sample pages 需要注入页面类名，页面的VM，页面的VM依赖的服务(接口)
+                _ = services.AddSingleton<OrderPage>();
+                _ = services.AddSingleton<OrderViewModel>();
+                _ = services.AddSingleton<IOrderService, OrderService>();
+
+                _ = services.AddSingleton<WritOrderPage>();
+                _ = services.AddSingleton<WritOrderViewModel>();
+                _ = services.AddSingleton<IWritOrderService, WritOrderService>();
+                // 依赖注入,注册FreeSql,可以避免多次实例化FreeSql
+                services.AddSingleton<IFreeSql>(provider =>
+                {
+                    return new FreeSqlBuilder()
+                        .UseConnectionString(DataType.Sqlite, "Data Source=database.db")
+                        .Build();
+                });
+
+            }
+        )
+        .Build();
 
     /// <summary>
     /// Gets registered service.

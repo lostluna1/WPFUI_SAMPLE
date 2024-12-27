@@ -5,7 +5,7 @@ using Wpf.Ui.Controls;
 
 namespace WPFUI_SAMPLE.ViewModels.Windows;
 
-public partial class MainWindowViewModel : ObservableObject
+public partial class MainWindowViewModel :  ViewModel
 {
     [ObservableProperty]
     private string _applicationTitle = "WPF UI - WPFUI_SAMPLE";

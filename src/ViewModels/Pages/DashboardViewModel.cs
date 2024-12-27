@@ -1,6 +1,6 @@
 ﻿namespace WPFUI_SAMPLE.ViewModels.Pages;
 
-public partial class DashboardViewModel : ObservableObject
+public partial class DashboardViewModel : ViewModel
 {
     [ObservableProperty]
     private int _counter = 0;

@@ -1,4 +1,5 @@
-﻿using TableAttribute = FreeSql.DataAnnotations.TableAttribute;
+﻿using System.ComponentModel.DataAnnotations;
+using TableAttribute = FreeSql.DataAnnotations.TableAttribute;
 
 namespace WPFUI_SAMPLE.Entity;
 
@@ -11,7 +12,7 @@ namespace WPFUI_SAMPLE.Entity;
 /// 订单
 /// </summary>
 [Table(Name = "ORDER")]// 指定表名,默认是类名
-public partial class OrderEntity: ObservableObject
+public partial class OrderEntity: ObservableValidator
 {
     // 字段如果是命名为Id,并且是int类型,则可以不用标记[Column(IsPrimary = true)],默认是主键,主键会默认加索引
 
@@ -24,6 +25,7 @@ public partial class OrderEntity: ObservableObject
     /// <summary>
     /// 订单编号
     /// </summary>
+    [Required(ErrorMessage ="不能为空")]
     [ObservableProperty]
     // 你可以像下面这样手动指定列名,默认是属性名,不过与[ObservableProperty]标记冲突,如果字段需要通知视图更新,则不能使用源生成器的情况下手动指定列名
     //[Column(Name = "ORDER_NO")]
@@ -32,6 +34,7 @@ public partial class OrderEntity: ObservableObject
     /// <summary>
     /// 订单名称
     /// </summary>
+    [Required(ErrorMessage ="不能为空")]
     [ObservableProperty]
     public string? orderName;
 

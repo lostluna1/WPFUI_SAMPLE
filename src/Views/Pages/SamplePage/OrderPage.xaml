@@ -18,17 +18,18 @@
             x:Name="OrderDataGrid"
             Margin="10"
             AutoGenerateColumns="False"
-            IsReadOnly="True"
+            IsReadOnly="False"
             ItemsSource="{Binding ViewModel.Orders}"
-            SelectionMode="Single">
+            SelectionMode="Extended">
             <DataGrid.Columns>
                 <!--<DataGridTextColumn
                     Width="50"
                     Binding="{Binding Id}"
                     Header="ID" />-->
+                <!--  开启编辑需要设置Binding的Mode为TwoWay  -->
                 <DataGridTextColumn
                     Width="150"
-                    Binding="{Binding OrderNo}"
+                    Binding="{Binding OrderNo, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                     Header="订单编号" />
                 <DataGridTextColumn
                     Width="200"

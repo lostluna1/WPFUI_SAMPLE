@@ -4,7 +4,7 @@ using WPFUI_SAMPLE.Entity;
 using WPFUI_SAMPLE.Services;
 
 namespace WPFUI_SAMPLE.ViewModels.Pages;
-public partial class OrderViewModel : ObservableObject, INavigationAware
+public partial class OrderViewModel : ViewModel
 {
     private readonly IOrderService _orderService;
     private bool _isInitialized = false;
@@ -20,9 +20,10 @@ public partial class OrderViewModel : ObservableObject, INavigationAware
         _orderService = orderService;
         Orders = new ObservableCollection<OrderEntity>();
         SelectedOrder = new OrderEntity();
+        InitializeViewModel();
     }
 
-    public void OnNavigatedTo()
+    /*public void OnNavigatedTo()
     {
         if(!_isInitialized)
         {
@@ -32,7 +33,7 @@ public partial class OrderViewModel : ObservableObject, INavigationAware
 
     public void OnNavigatedFrom()
     {
-    }
+    }*/
 
     private async void InitializeViewModel()
     {

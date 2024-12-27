@@ -6,6 +6,13 @@
     "Children": []
   },
   {
+    "Content": "制令单",
+    "Icon": "Home24",
+    "TargetPageType": "Views.Pages.WritOrderPage",
+    "Children": []
+  },
+
+  {
     "Content": "测试数据",
     "Icon": "DataHistogram24",
     "TargetPageType": "Views.Pages.DataPage",

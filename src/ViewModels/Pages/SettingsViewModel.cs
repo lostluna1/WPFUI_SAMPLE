@@ -2,7 +2,7 @@
 using Wpf.Ui.Controls;
 
 namespace WPFUI_SAMPLE.ViewModels.Pages;
-public partial class SettingsViewModel : ObservableObject, INavigationAware
+public partial class SettingsViewModel : ViewModel
 {
     private bool _isInitialized = false;
 

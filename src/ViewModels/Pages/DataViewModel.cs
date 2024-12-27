@@ -3,7 +3,7 @@ using Wpf.Ui.Controls;
 using WPFUI_SAMPLE.Models;
 
 namespace WPFUI_SAMPLE.ViewModels.Pages;
-public partial class DataViewModel : ObservableObject, INavigationAware
+public partial class DataViewModel : ViewModel
 {
     private bool _isInitialized = false;
 

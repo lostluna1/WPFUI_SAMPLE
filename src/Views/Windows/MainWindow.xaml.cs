@@ -1,66 +1,84 @@
-﻿using Wpf.Ui;
+﻿using System.Windows;
+using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
+using Wpf.Ui.Gallery.Services.Contracts;
 using WPFUI_SAMPLE.ViewModels.Windows;
+using WPFUI_SAMPLE.Views.Pages;
 
 namespace WPFUI_SAMPLE.Views.Windows;
-public partial class MainWindow : INavigationWindow
+public partial class MainWindow : IWindow
 {
-    public MainWindowViewModel ViewModel
-    {
-        get;
-    }
-
     public MainWindow(
         MainWindowViewModel viewModel,
-        IPageService pageService,
-        INavigationService navigationService
+        INavigationService navigationService,
+        IServiceProvider serviceProvider,
+        ISnackbarService snackbarService,
+        IContentDialogService contentDialogService
     )
     {
-        ViewModel = viewModel;// 构造中注入ViewModel
-        DataContext = this;// 设置DataContext
+        Wpf.Ui.Appearance.SystemThemeWatcher.Watch(this);
 
-        SystemThemeWatcher.Watch(this);// 监听系统主题变化
+        ViewModel = viewModel;
+        DataContext = this;
 
         InitializeComponent();
-        SetPageService(pageService);
 
-        navigationService.SetNavigationControl(RootNavigation);
+        snackbarService.SetSnackbarPresenter(SnackbarPresenter);
+        navigationService.SetNavigationControl(NavigationView);
+        contentDialogService.SetDialogHost(RootContentDialog);
     }
 
-    #region INavigationWindow methods
+    public MainWindowViewModel ViewModel { get; }
 
-    // => 是C# 7.0中的新特性，用于简化Lambda表达式的写法，可以用来返回一个表达式的值,其等价于 { return RootNavigation; }
-    public INavigationView GetNavigation() => RootNavigation;
+    private bool _isUserClosedPane;
 
-    public bool Navigate(Type pageType) => RootNavigation.Navigate(pageType);
+    private bool _isPaneOpenedOrClosedFromCode;
 
-    public void SetPageService(IPageService pageService) => RootNavigation.SetPageService(pageService);
-
-    public void ShowWindow() => Show();
-
-    public void CloseWindow() => Close();
-
-    #endregion INavigationWindow methods
-
-    /// <summary>
-    /// Raises the closed event.
-    /// </summary>
-    protected override void OnClosed(EventArgs e)
+    private void OnNavigationSelectionChanged(object sender, RoutedEventArgs e)
     {
-        base.OnClosed(e);
+        if (sender is not Wpf.Ui.Controls.NavigationView navigationView)
+        {
+            return;
+        }
 
-        // Make sure that closing this window will begin the process of closing the application.
-        Application.Current.Shutdown();
+        NavigationView.SetCurrentValue(
+            NavigationView.HeaderVisibilityProperty,
+            navigationView.SelectedItem?.TargetPageType != typeof(DashboardPage)
+                ? Visibility.Visible
+                : Visibility.Collapsed
+        );
     }
 
-    INavigationView INavigationWindow.GetNavigation()
+    private void MainWindow_OnSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        throw new NotImplementedException();
+        if (_isUserClosedPane)
+        {
+            return;
+        }
+
+        _isPaneOpenedOrClosedFromCode = true;
+        NavigationView.SetCurrentValue(NavigationView.IsPaneOpenProperty, e.NewSize.Width > 1200);
+        _isPaneOpenedOrClosedFromCode = false;
     }
 
-    public void SetServiceProvider(IServiceProvider serviceProvider)
+    private void NavigationView_OnPaneOpened(NavigationView sender, RoutedEventArgs args)
     {
-        throw new NotImplementedException();
+        if (_isPaneOpenedOrClosedFromCode)
+        {
+            return;
+        }
+
+        _isUserClosedPane = false;
+    }
+
+    private void NavigationView_OnPaneClosed(NavigationView sender, RoutedEventArgs args)
+    {
+        if (_isPaneOpenedOrClosedFromCode)
+        {
+            return;
+        }
+
+        _isUserClosedPane = true;
     }
 }
