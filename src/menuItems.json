@@ -1,0 +1,25 @@
+[
+  {
+    "Content": "订单",
+    "Icon": "Home24",
+    "TargetPageType": "Views.Pages.SamplePage.OrderPage",
+    "Children": []
+  },
+  {
+    "Content": "测试数据",
+    "Icon": "DataHistogram24",
+    "TargetPageType": "Views.Pages.DataPage",
+    "Children": [
+      {
+        "Content": "测试数据1",
+        "Icon": "DataHistogram24",
+        "TargetPageType": "Views.Pages.DataPage"
+      },
+      {
+        "Content": "测试数据2",
+        "Icon": "DataHistogram24",
+        "TargetPageType": "Views.Pages.DataPage"
+      }
+    ]
+  }
+]
