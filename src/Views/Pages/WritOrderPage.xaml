@@ -44,95 +44,100 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="150"
-                        Binding="{Binding WritOrderNo, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding WritOrderNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="制令单编号" />
                     <DataGridTextColumn
                         Width="200"
-                        Binding="{Binding BrandName, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding BrandName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="品名" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding MaterialCode, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding MaterialCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="物料编码" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding Specification, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding Specification, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="规格" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding ColourScheme, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding ColourScheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="色系" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding PlanQuantity, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding PlanQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="计划数量" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding Line, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding Line, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="生产线" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding OriginalPlanProductionDate, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding OriginalPlanProductionDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="原计划生产日期" />
-                    <DataGridTextColumn
+                    <DataGridCheckBoxColumn
                         Width="100"
-                        Binding="{Binding IsTrialProduction, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding IsTrialProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="是否试生产" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding Requirement, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding Requirement, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="要求" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding Customer, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding Customer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="客户" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding DeliveryDate, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding DeliveryDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="交货日期" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding ActualProductName, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding ActualProductName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="实际品名" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding ActualProductionSpecification, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding ActualProductionSpecification, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="实际生产规格" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding ActualProductionLine, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding ActualProductionLine, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="实际生产线" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding DocumentDailyReport, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding DocumentDailyReport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="文档日报" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding ProgressReportData, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding ProgressReportData, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="进度报告数据" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding ProductionDate, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding ProductionDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="生产日期" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding Difference, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding Difference, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="差异" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding MaterialCode2, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding MaterialCode2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="物料编码2" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding InspectionQuantity, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding InspectionQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="检验数量" />
                     <DataGridTextColumn
                         Width="100"
-                        Binding="{Binding Remark, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        Binding="{Binding Remark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="备注" />
                     <!--  其他列  -->
                 </DataGrid.Columns>
             </ui:DataGrid>
+            <StackPanel Orientation="Horizontal">
+                <Label>共</Label>
+                <Label Content="{Binding WritOrders.Count}" />
+                <Label>行</Label>
+            </StackPanel>
         </WrapPanel>
 
     </Grid>

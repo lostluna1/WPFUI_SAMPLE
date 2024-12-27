@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using WPFUI_SAMPLE.Contracts.Services;
 using WPFUI_SAMPLE.Entity;
 
@@ -24,6 +25,10 @@ public partial class WritOrderViewModel : ViewModel
         WritOrders = writOrders;
     }
 
+    partial void OnWritOrdersChanged(ObservableCollection<WritOrderEntity>? oldValue, ObservableCollection<WritOrderEntity> newValue)
+    {
+        MessageBox.Show("123");
+    }
     //需要在表格中添加新的空白行
 
     [RelayCommand]
@@ -40,7 +45,7 @@ public partial class WritOrderViewModel : ViewModel
             PlanQuantity = null,
             Line = string.Empty,
             OriginalPlanProductionDate = null,
-            IsTrialProduction = null,
+            IsTrialProduction = false,
             Requirement = string.Empty,
             Customer = string.Empty,
             DeliveryDate = null,
