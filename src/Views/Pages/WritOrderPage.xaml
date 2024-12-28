@@ -88,6 +88,7 @@
                                 <ComboBox
                                     DisplayMemberPath="Name"
                                     ItemsSource="{Binding DataContext.ViewModel.Brands, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    SelectedItem="{Binding Brand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     SelectedValue="{Binding BrandId, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                     SelectedValuePath="Id" />
                             </DataTemplate>
@@ -131,6 +132,7 @@
                                 <ComboBox
                                     DisplayMemberPath="Name"
                                     ItemsSource="{Binding DataContext.ViewModel.ColourSchemes, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    SelectedItem="{Binding ColourScheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     SelectedValue="{Binding ColourSchemeId, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                     SelectedValuePath="Id" />
                             </DataTemplate>
@@ -161,6 +163,7 @@
                                 <ComboBox
                                     DisplayMemberPath="Name"
                                     ItemsSource="{Binding DataContext.ViewModel.Lines, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    SelectedItem="{Binding Line, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     SelectedValue="{Binding LineId, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                     SelectedValuePath="Id" />
                             </DataTemplate>
@@ -208,6 +211,7 @@
                                 <ComboBox
                                     DisplayMemberPath="Name"
                                     ItemsSource="{Binding DataContext.ViewModel.Brands, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    SelectedItem="{Binding ActualBrand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     SelectedValue="{Binding ActuallyBrandId, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                     SelectedValuePath="Id" />
                             </DataTemplate>
@@ -227,6 +231,7 @@
                                 <ComboBox
                                     DisplayMemberPath="Name"
                                     ItemsSource="{Binding DataContext.ViewModel.Lines, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    SelectedItem="{Binding ActualLine, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     SelectedValue="{Binding ActualLineId, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                     SelectedValuePath="Id" />
                             </DataTemplate>
