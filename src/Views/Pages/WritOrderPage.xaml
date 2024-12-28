@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:WPFUI_SAMPLE.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:vm="clr-namespace:WPFUI_SAMPLE.ViewModels.Pages"
     Title="WritOrderPage"
     d:DataContext="{d:DesignInstance local:WritOrderPage,
                                      IsDesignTimeCreatable=True}"
@@ -28,11 +29,11 @@
                     Margin="5"
                     Command="{Binding ViewModel.SaveWritOrderCommand}"
                     Content="保存" />
-                <ui:Button Margin="5"
-                        Command="{Binding ViewModel.RefreshDataCommand}" Content="刷新" Appearance="Primary">
-                    
-                </ui:Button>
-
+                <ui:Button
+                    Margin="5"
+                    Appearance="Primary"
+                    Command="{Binding ViewModel.RefreshDataCommand}"
+                    Content="刷新" />
             </StackPanel>
             <ui:DataGrid
                 x:Name="OrderDataGrid"
@@ -44,105 +45,175 @@
                 ItemsSource="{Binding ViewModel.WritOrders}"
                 SelectedItem="{Binding ViewModel.SelectedWritOrder}"
                 SelectionMode="Extended">
-
                 <DataGrid.Columns>
-                    <DataGridTextColumn
-                        Width="150"
-                        Binding="{Binding WritOrderNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="制令单编号" />
-                    <DataGridTextColumn
-                        Width="200"
-                        Binding="{Binding BrandName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="品名" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding MaterialCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="物料编码" />
+                    <DataGridTextColumn Binding="{Binding WritOrderNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="制令单编号" />
+
+                    <DataGridTemplateColumn Header="品名">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox
+                                    DisplayMemberPath="Name"
+                                    ItemsSource="{Binding DataContext.ViewModel.Brands, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    SelectedValue="{Binding BrandId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedValuePath="Id" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="物料">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox
+                                    DisplayMemberPath="Code"
+                                    ItemsSource="{Binding DataContext.ViewModel.Materials, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    SelectedValue="{Binding MaterialId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedValuePath="Id" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn
                         Width="100"
                         Binding="{Binding Specification, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Header="规格" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding ColourScheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="色系" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding PlanQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="计划数量" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding Line, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="生产线" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding OriginalPlanProductionDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="原计划生产日期" />
-                    <DataGridCheckBoxColumn
-                        Width="100"
-                        Binding="{Binding IsTrialProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="是否试生产" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding Requirement, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="要求" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding Customer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="客户" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding DeliveryDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="交货日期" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding ActualProductName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="实际品名" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding ActualProductionSpecification, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="实际生产规格" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding ActualProductionLine, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="实际生产线" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding DocumentDailyReport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="文档日报" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding ProgressReportData, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="进度报告数据" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding ProductionDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="生产日期" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding Difference, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="差异" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding MaterialCode2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="物料编码2" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding InspectionQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="检验数量" />
-                    <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding Remark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Header="备注" />
-                    <!--  其他列  -->
+                    <DataGridTemplateColumn Header="色系">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox
+                                    DisplayMemberPath="Name"
+                                    ItemsSource="{Binding DataContext.ViewModel.ColourSchemes, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    SelectedValue="{Binding ColourSchemeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedValuePath="Id" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="计划数量">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ui:NumberBox Minimum="1" Value="{Binding PlanQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="生产线">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox
+                                    DisplayMemberPath="Name"
+                                    ItemsSource="{Binding DataContext.ViewModel.Lines, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    SelectedValue="{Binding LineId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedValuePath="Id" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="原计划生产日期">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="15,0,0,0" Text="{Binding OriginalPlanProductionDate, StringFormat=yyyy-MM-dd}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <DatePicker SelectedDate="{Binding OriginalPlanProductionDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridCheckBoxColumn Binding="{Binding IsTrialProduction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="是否试生产" />
+                    <DataGridTextColumn Binding="{Binding Requirement, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="要求" />
+                    <DataGridTextColumn Binding="{Binding Customer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="客户" />
+
+                    <DataGridTemplateColumn Header="交货日期">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="15,0,0,0" Text="{Binding DeliveryDate, StringFormat=yyyy-MM-dd}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <DatePicker SelectedDate="{Binding DeliveryDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="实际品名">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox
+                                    DisplayMemberPath="Name"
+                                    ItemsSource="{Binding DataContext.ViewModel.Brands, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    SelectedValue="{Binding ActuallyBrandId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedValuePath="Id" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn Binding="{Binding ActualProductionSpecification, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="实际生产规格" />
+
+                    <DataGridTemplateColumn Header="实际生产线">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox
+                                    DisplayMemberPath="Name"
+                                    ItemsSource="{Binding DataContext.ViewModel.Lines, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    SelectedValue="{Binding ActualLineId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedValuePath="Id" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+
+                    <DataGridTextColumn Binding="{Binding DocumentDailyReport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="文档日报" />
+                    <DataGridTextColumn Binding="{Binding ProgressReportData, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="进度报告数据" />
+
+                    <DataGridTemplateColumn Header="生产日期">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="15,0,0,0" Text="{Binding ProductionDate, StringFormat=yyyy-MM-dd}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <DatePicker SelectedDate="{Binding ProductionDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Binding="{Binding Difference, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="差异" />
+                    <DataGridTextColumn Binding="{Binding MaterialCode2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="物料编码2" />
+                    <!--<DataGridTextColumn Binding="{Binding InspectionQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="检验数量" />-->
+                    <DataGridTemplateColumn Header="检验数量">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ui:NumberBox Minimum="1" Value="{Binding InspectionQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="150" Header="备注">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ui:TextBox Margin="15,0,0,0" Text="{Binding Remark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <!--  双击单元格编辑的时候，会自动换行  -->
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <ui:TextBox
+                                    Margin="15,0,0,0"
+                                    Text="{Binding Remark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    TextWrapping="Wrap" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
                 </DataGrid.Columns>
             </ui:DataGrid>
             <StackPanel Orientation="Horizontal">
                 <Label>共</Label>
-                <Label Content="{Binding WritOrders.Count}" />
+                <Label Content="{Binding ViewModel.WritOrders.Count}" />
                 <Label>行</Label>
             </StackPanel>
         </WrapPanel>
-
     </Grid>
 </Page>

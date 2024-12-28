@@ -8,165 +8,180 @@ namespace WPFUI_SAMPLE.Entity;
 [Table(Name = "WRIT_ORDER")]
 public partial class WritOrderEntity : ObservableValidator
 {
+
+
     // [Column(IsPrimary = true)]
     public Guid Id
     {
         get; set;
     }
+
     /// <summary>
     /// 制令单编号
     /// </summary>
-    [Required(ErrorMessage = "不能为空")]
+    [Required(ErrorMessage = "制令单编号不能为空")]
     [ObservableProperty]
-    public string? writOrderNo;
+    private string? writOrderNo;
 
     /// <summary>
     /// 品名
     /// </summary>
-    [Required(ErrorMessage = "不能为空")]
+    [NotEmptyGuid(ErrorMessage = "品名不能为空")]
     [ObservableProperty]
-    public string? brandName;
+    private Guid brandId;
+
+
+    [Navigate(nameof(BrandId))]
+    public BrandEntity? Brand
+    {
+        get; set;
+    }
 
     /// <summary>
     /// 物料编码
     /// </summary>
     [ObservableProperty]
-    public string? materialCode;
+    private Guid materialId;
+
+    [Navigate(nameof(MaterialId))]
+    [ObservableProperty]
+    public MaterialEntity? material;
 
     /// <summary>
     /// 规格(W*H*L)
     /// </summary>
     [ObservableProperty]
-    public string? specification;
+    private string? specification;
 
     /// <summary>
     /// 色系
     /// </summary>
     [ObservableProperty]
-    public string? colourScheme;
+    private Guid colourSchemeId;
 
+    [Navigate(nameof(ColourSchemeId))]
+    public ColourSchemeEntity? ColourScheme
+    {
+        get; set;
+    }
 
-    /*计划数量 线别  原计划生产日期 是否算试产   要求 客户  发货日期 实际生产品名  实际生产规格 实际生产线别  文档日报表 进度报表数据  生产日期 差异  物料编码2 送检数量    备注*/
     /// <summary>
     /// 计划数量
     /// </summary>
-    /// 
     [ObservableProperty]
-    public int? planQuantity;
+    private int? planQuantity;
 
     /// <summary>
     /// 线别
     /// </summary>
-    /// 
     [ObservableProperty]
-    public string? line;
+    private Guid lineId;
+
+    [Navigate(nameof(LineId))]
+    public LineEntity? Line
+    {
+        get; set;
+    }
 
     /// <summary>
     /// 原计划生产日期
     /// </summary>
-    /// 
     [ObservableProperty]
-    public DateTime? originalPlanProductionDate;
+    private DateTime? originalPlanProductionDate;
 
     /// <summary>
     /// 是否算试产
     /// </summary>
-    /// 
     [ObservableProperty]
-    public bool? isTrialProduction;
+    private bool? isTrialProduction;
 
     /// <summary>
     /// 要求
     /// </summary>
-    /// 
     [ObservableProperty]
-    public string? requirement;
+    private string? requirement;
 
     /// <summary>
     /// 客户
     /// </summary>
-    /// 
     [ObservableProperty]
-    public string? customer;
+    private string? customer;
 
     /// <summary>
     /// 发货日期
     /// </summary>
-    /// 
     [ObservableProperty]
-    public DateTime? deliveryDate;
+    private DateTime? deliveryDate;
 
     /// <summary>
     /// 实际生产品名
     /// </summary>
-    /// 
     [ObservableProperty]
-    public string? actualProductName;
+    private Guid actuallyBrandId;
+
+    [Navigate(nameof(ActuallyBrandId))]
+    public BrandEntity? ActualBrand
+    {
+        get; set;
+    }
 
     /// <summary>
     /// 实际生产规格
     /// </summary>
-    /// 
     [ObservableProperty]
-    public string? actualProductionSpecification;
+    private string? actualProductionSpecification;
 
     /// <summary>
     /// 实际生产线别
     /// </summary>
-    /// 
     [ObservableProperty]
-    public string? actualProductionLine;
+    private Guid actualLineId;
+
+    [Navigate(nameof(ActualLineId))]
+    public LineEntity? ActualLine
+    {
+        get; set;
+    }
 
     /// <summary>
     /// 文档日报表
     /// </summary>
-    /// 
     [ObservableProperty]
-    public string? documentDailyReport;
+    private string? documentDailyReport;
 
     /// <summary>
     /// 进度报表数据
     /// </summary>
-    /// 
     [ObservableProperty]
-    public string? progressReportData;
+    private string? progressReportData;
 
     /// <summary>
     /// 生产日期
     /// </summary>
-    /// 
     [ObservableProperty]
-    public DateTime? productionDate;
+    private DateTime? productionDate;
 
     /// <summary>
     /// 差异  
     /// </summary>
-    /// 
     [ObservableProperty]
-    public string? difference;
+    private string? difference;
 
     /// <summary>
     /// 物料编码2
     /// </summary>
-    ///
     [ObservableProperty]
-    public string? materialCode2;
+    private string? materialCode2;
 
     /// <summary>
     /// 送检数量
     /// </summary>
-    /// 
     [ObservableProperty]
-    public int? inspectionQuantity;
+    private int? inspectionQuantity;
 
     /// <summary>
     /// 备注
     /// </summary>
-    /// 
     [ObservableProperty]
-    public string? remark;
-
-
-
-
+    private string? remark;
 }

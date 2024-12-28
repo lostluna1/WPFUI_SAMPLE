@@ -7,10 +7,10 @@ using Wpf.Ui.Abstractions.Controls;
 
 namespace WPFUI_SAMPLE.ViewModels;
 
-public abstract partial class ViewModel : ObservableObject, INavigationAware
+public abstract partial class ViewModel : ObservableValidator, INavigationAware
 {
     /// <inheritdoc />
-    public virtual async Task OnNavigatedToAsync()
+    public async virtual Task OnNavigatedToAsync()
     {
         using CancellationTokenSource cts = new();
 
@@ -21,10 +21,12 @@ public abstract partial class ViewModel : ObservableObject, INavigationAware
     /// Handles the event that is fired after the component is navigated to.
     /// </summary>
     // ReSharper disable once MemberCanBeProtected.Global
-    public virtual void OnNavigatedTo() { }
+    public virtual void OnNavigatedTo()
+    {
+    }
 
     /// <inheritdoc />
-    public virtual async Task OnNavigatedFromAsync()
+    public async virtual Task OnNavigatedFromAsync()
     {
         using CancellationTokenSource cts = new();
 
@@ -35,7 +37,9 @@ public abstract partial class ViewModel : ObservableObject, INavigationAware
     /// Handles the event that is fired before the component is navigated from.
     /// </summary>
     // ReSharper disable once MemberCanBeProtected.Global
-    public virtual void OnNavigatedFrom() { }
+    public virtual void OnNavigatedFrom()
+    {
+    }
 
     /// <summary>
     /// Dispatches the specified action on the UI thread.
