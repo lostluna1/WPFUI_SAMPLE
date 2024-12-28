@@ -106,6 +106,7 @@
                                     DisplayMemberPath="Code"
                                     ItemsSource="{Binding DataContext.ViewModel.Materials, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                     SelectedItem="{Binding Material, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedValue="{Binding MaterialId, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                     SelectedValuePath="Id" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
