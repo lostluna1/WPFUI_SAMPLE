@@ -4,6 +4,8 @@ using WPFUI_SAMPLE.Contracts.Services;
 using WPFUI_SAMPLE.Entity;
 using WPFUI_SAMPLE.Helpers;
 using WPFUI_SAMPLE.Services;
+using WPFUI_SAMPLE.Views.Pages;
+using WPFUI_SAMPLE.Views.Pages.SamplePage;
 
 namespace WPFUI_SAMPLE.ViewModels.Pages;
 public partial class WritOrderViewModel : ViewModel
@@ -141,8 +143,17 @@ public partial class WritOrderViewModel : ViewModel
     [RelayCommand]
     private async Task RefreshData()
     {
-        // 需要刷新的数据在这里调用对应方法
-        await InitializeViewModel();
+        /*var navigationService = App.GetRequiredService<INavigationService>();
+        navigationService.Navigate(typeof(WritOrderPage));*/
+        await Task.Run(async () =>
+        {
+            await InitializeViewModel();
+        });
+
+/*        // 更新 UI
+        OnPropertyChanged(nameof(WritOrders));
+        OnPropertyChanged(nameof(OriginalWritOrders));
+        OnPropertyChanged(nameof(WritOrderNos));*/
     }
 
     [RelayCommand]
@@ -175,10 +186,7 @@ public partial class WritOrderViewModel : ViewModel
             InspectionQuantity = null,
             Remark = string.Empty
         };
-        for (int i = 0; i < 10000; i++)
-        {
-            WritOrders.Add(newWritOrder); 
-        }
+        WritOrders.Add(newWritOrder);
     }
 
     [RelayCommand]
@@ -193,8 +201,11 @@ public partial class WritOrderViewModel : ViewModel
                 return;
             }
         }
-
-        await _writOrderService.AddOrUpdateWritOrder(WritOrders);
+        await Task.Run(async () =>
+        {
+            await _writOrderService.AddOrUpdateWritOrder(WritOrders);
+        });
+        
     }
 
     [RelayCommand]
@@ -210,11 +221,13 @@ public partial class WritOrderViewModel : ViewModel
     [RelayCommand]
     private async Task UpdateWritOrder()
     {
+
         if (SelectedWritOrder != null)
         {
             await _writOrderService.UpdateWritOrder(SelectedWritOrder);
             int index = WritOrders.IndexOf(SelectedWritOrder);
             WritOrders[index] = SelectedWritOrder;
         }
+
     }
 }

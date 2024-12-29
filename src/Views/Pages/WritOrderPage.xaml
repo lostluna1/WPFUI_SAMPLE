@@ -29,29 +29,10 @@
         </Grid.RowDefinitions>
 
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button
-                Margin="5"
-                Command="{Binding ViewModel.AddNewWritOrderCommand}"
-                Content="添加新行" />
-            <Button
-                Margin="5"
-                Command="{Binding ViewModel.DeleteWritOrderCommand}"
-                Content="删除行" />
-            <Button
-                Margin="5"
-                Command="{Binding ViewModel.SaveWritOrderCommand}"
-                Content="保存" />
-            <ui:Button
-                Margin="5"
-                Appearance="Primary"
-                Command="{Binding ViewModel.RefreshDataCommand}"
-                Content="刷新" />
-        </StackPanel>
 
         <!--  OriginalItemsSource必须是一个string集合  -->
         <ui:AutoSuggestBox
-            Grid.Row="1"
+            Grid.Row="0"
             Width="250"
             HorizontalAlignment="Right"
             Icon="{ui:SymbolIcon Search24}"
@@ -60,12 +41,12 @@
             SuggestionChosen="AutoSuggestBox_SuggestionChosen"
             TextChanged="AutoSuggestBox_TextChanged" />
         <ui:Card
-            Grid.Row="2"
+            Grid.Row="1"
             Grid.Column="0"
             Margin="0,5,0,0">
             <ui:DataGrid
                 x:Name="OrderDataGrid"
-                Height="550"
+                Height="500"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
                 CanUserDeleteRows="False"
@@ -286,21 +267,26 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
-
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="{Binding ViewModel.AddNewWritOrderCommand}" Header="添加新行" />
+                        <MenuItem Command="{Binding ViewModel.DeleteWritOrderCommand}" Header="删除行" />
+                        <MenuItem Command="{Binding ViewModel.SaveWritOrderCommand}" Header="保存" />
+                        <MenuItem Command="{Binding ViewModel.RefreshDataCommand}" Header="刷新" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
             </ui:DataGrid>
         </ui:Card>
 
         <StackPanel
-            Grid.Row="3"
+            Grid.Row="2"
             Margin="0,15,5,0"
             Orientation="Horizontal">
-            <Label>共</Label>
-            <Label
-                Margin="5,0,5,0"
-                Content="{Binding ViewModel.WritOrders.Count}"
-                FontWeight="Bold" />
-            <Label>行</Label>
+            <TextBlock Foreground="Orange">
+                共<Run FontWeight="Bold" Text="{Binding ViewModel.WritOrders.Count, Mode=OneWay}" />
+                行</TextBlock>
         </StackPanel>
+
 
     </Grid>
 </Page>

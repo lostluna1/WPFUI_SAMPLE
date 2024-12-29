@@ -24,6 +24,7 @@
 
         <ui:Button
             Grid.Column="0"
+            Click="Button_Click"
             Command="{Binding ViewModel.CounterIncrementCommand, Mode=OneWay}"
             Content="Click me!"
             Icon="Fluent24" />

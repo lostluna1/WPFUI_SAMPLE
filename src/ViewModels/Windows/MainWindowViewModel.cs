@@ -1,11 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using Oracle.ManagedDataAccess.OpenTelemetry;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.Json;
 using Wpf.Ui.Controls;
 
 namespace WPFUI_SAMPLE.ViewModels.Windows;
 
-public partial class MainWindowViewModel :  ViewModel
+public partial class MainWindowViewModel : ViewModel
 {
     [ObservableProperty]
     private string _applicationTitle = "WPF UI - WPFUI_SAMPLE";
@@ -48,7 +49,8 @@ public partial class MainWindowViewModel :  ViewModel
                 {
                     Content = item.Content,
                     Icon = new SymbolIcon { Symbol = (SymbolRegular)Enum.Parse(typeof(SymbolRegular), item.Icon) },
-                    TargetPageType = Type.GetType("WPFUI_SAMPLE."+item.TargetPageType)
+                    TargetPageType = Type.GetType("WPFUI_SAMPLE." + item.TargetPageType),
+                    NavigationCacheMode = NavigationCacheMode.Disabled
                 };
 
 
@@ -61,7 +63,7 @@ public partial class MainWindowViewModel :  ViewModel
                         {
                             Content = child.Content,
                             Icon = new SymbolIcon { Symbol = (SymbolRegular)Enum.Parse(typeof(SymbolRegular), child.Icon) },
-                            TargetPageType = Type.GetType("WPFUI_SAMPLE."+child.TargetPageType)
+                            TargetPageType = Type.GetType("WPFUI_SAMPLE." + child.TargetPageType)
                         };
                         navigationItem.MenuItems.Add(childItem);
                     }

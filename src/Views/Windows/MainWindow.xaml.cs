@@ -1,10 +1,14 @@
-﻿using System.Windows;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Mysqlx.Crud;
+using System.Windows;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Gallery.Services.Contracts;
+using WPFUI_SAMPLE.ViewModels.Pages;
 using WPFUI_SAMPLE.ViewModels.Windows;
 using WPFUI_SAMPLE.Views.Pages;
+using WPFUI_SAMPLE.Views.Pages.SamplePage;
 
 namespace WPFUI_SAMPLE.Views.Windows;
 public partial class MainWindow : IWindow

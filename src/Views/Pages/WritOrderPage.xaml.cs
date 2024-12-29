@@ -19,7 +19,7 @@ public partial class WritOrderPage : INavigableView<WritOrderViewModel>
         ViewModel = writOrderViewModel;
         DataContext = this;
         InitializeComponent();
-
+        
     }
 
     private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
