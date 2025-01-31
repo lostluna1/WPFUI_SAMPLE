@@ -56,16 +56,9 @@
             Orientation="Horizontal">
             <Button
                 Margin="5"
-                Command="{Binding ViewModel.AddOrderCommand}"
-                Content="添加订单" />
-            <Button
-                Margin="5"
-                Command="{Binding ViewModel.UpdateOrderCommand}"
-                Content="更新订单" />
-            <Button
-                Margin="5"
-                Command="{Binding ViewModel.DeleteOrderCommand}"
-                Content="删除订单" />
+                Click="Button_Click"
+                Content="加载pvf" />
+
         </StackPanel>
     </Grid>
 </Page>
